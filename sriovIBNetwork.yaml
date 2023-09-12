@@ -1,0 +1,14 @@
+kind: SriovIBNetwork
+apiVersion: sriovnetwork.openshift.io/v1
+metadata:
+  name: ibnetwork{0..7}
+  namespace: default
+spec:
+  ipam: |-
+    {
+      "type" : "whereabouts",
+      "range" : "192.168.{0..7}.X/24"
+    }
+  networkNamespace: default
+  resourceName: rdma_sw{0..7}
+  linkState: enable

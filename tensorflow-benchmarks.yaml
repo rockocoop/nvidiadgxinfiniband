@@ -1,0 +1,103 @@
+apiVersion: kubeflow.org/v1
+kind: MPIJob
+metadata:
+  name: tensorflow-benchmarks
+spec:
+  slotsPerWorker: 1 #should equal number of GPUs per worker
+  runPolicy:
+    cleanPodPolicy: Running
+  mpiReplicaSpecs:
+    Launcher:
+      replicas: 1
+      template:
+        spec:
+          containers:
+          - image: CONTAINERS_REGISTRY/nvcr.io/nvidia/tensorflow:21.12-tf1-py3
+            name: tensorflow-benchmarks
+            command:
+            - mpirun
+            - - allow-run-as-root
+            - -np
+            - "2" #Should equal total number of GPUs (# of Workers x # of GPUs per Worker)
+            - -bind-to
+            - none
+            - -map-by
+            - slot
+            - -x
+            - NCCL_DEBUG=INFO
+            - -x
+            - NCCL_IB_DISABLE=0
+            - -x
+            - NCCL_NET_GDR_LEVEL=2
+            - -x
+            - TF_ALLOW_IOLIBS=1
+            - -x
+            - LD_LIBRARY_PATH
+            - -x
+            - PATH
+            - -mca
+            - pml
+            - ob1
+            - -mca
+            - btl
+            - ^openib
+            - -mca
+            - btl_tcp_if_include
+            - eth0
+            - python
+            - scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py
+            - - batch_size=768
+            - - model=resnet152
+            - - variable_update=horovod
+            - - use_fp16=true
+    Worker:
+      replicas: 2
+      template:
+        metadata:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |-
+              [
+                {
+                  "name": "ibnetwork1",
+                  "namespace" : "default"
+                },{
+                  "name": "ibnetwork2",
+                  "namespace" : "default"
+                },{
+                  "name": "ibnetwork3",
+                  "namespace" : "default"
+                },{
+                  "name": "ibnetwork4",
+                  "namespace" : "default"
+                },{
+                  "name": "ibnetwork5",
+                  "namespace" : "default"
+                },{
+                  "name": "ibnetwork6",
+                  "namespace" : "default"
+                },{
+                  "name": "ibnetwork7",
+                  "namespace" : "default"
+                },{
+                  "name": "ibnetwork8",
+                  "namespace" : "default"
+                }
+            ]
+        spec:
+          containers:
+          - image: CONTAINERS_REGISTRY/nvcr.io/nvidia/tensorflow:21.12-tf1-py3
+            name: tensorflow-benchmarks
+            securityContext:
+              capabilities:
+                add: ["IPC_LOCK"]
+            resources:
+              limits:
+                nvidia.com/gpu: 1
+                openshift.io/rdma_sw1: 1
+                openshift.io/rdma_sw2: 1
+                openshift.io/rdma_sw3: 1
+                openshift.io/rdma_sw4: 1
+                openshift.io/rdma_sw5: 1
+                openshift.io/rdma_sw6: 1
+                openshift.io/rdma_sw7: 1
+                openshift.io/rdma_sw8: 1

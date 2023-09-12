@@ -1,0 +1,17 @@
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: mlnxnics-sw{0..7}
+  namespace: openshift-sriov-network-operator
+spec:
+  nodeSelector:
+    feature.node.kubernetes.io/custom-rdma.capable: "true"
+  nicSelector:
+  pfNames:
+  - ib{0..7}
+  deviceType: netdevice
+  numVfs: 8
+  priority: 99
+  resourceName: rdma_sw<N>
+  isRdma: true
+  linkType: IB
