@@ -1,0 +1,7 @@
+FROM nvcr.io/nvidia/mellanox/mofed:23.04-0.5.3.3.1-rhcos4.10-amd64
+
+COPY kernel-core-4.18.0-305.65.1.el8_4.x86_64.rpm /root/
+COPY kernel-headers-4.18.0-305.65.1.el8_4.x86_64.rpm /root/
+COPY kernel-devel-4.18.0-305.65.1.el8_4.x86_64.rpm /root/
+
+RUN dnf clean all && dnf install --releasever=8.4 /root/kernel-core-4.18.0-305.65.1.el8_4.x86_64.rpm -y && dnf install --releasever=8.4 /root/kernel-headers-4.18.0-305.65.1.el8_4.x86_64.rpm -y && dnf install --releasever=8.4 /root/kernel-devel-4.18.0-305.65.1.el8_4.x86_64.rpm -y && dnf install --releasever=8.4 elfutils-libelf-devel kernel-rpm-macros createrepo numactl-libs -y
