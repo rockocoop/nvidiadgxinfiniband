@@ -20,9 +20,9 @@ spec:
     upgradePolicy:
       autoUpgrade: true
       maxParallelUpgrades: 1
-    drain:
-      enable: true
-      force: false
-      podSelector: ""
-      timeoutSeconds: 300
-      deleteEmptyDir: false
+      drain:
+        enable: true
+        force: false
+        podSelector: ""
+        timeoutSeconds: 300
+        deleteEmptyDir: false
