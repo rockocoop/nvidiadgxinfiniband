@@ -1,0 +1,16 @@
+FROM registry.access.redhat.com/ubi9/ubi:9.4
+
+# Set work directory
+WORKDIR /root/mft
+
+# Copy in packages not available in UBI repo
+COPY ./rpms/*.rpm /root/rpms/
+RUN dnf install /root/rpms/usbutils*.rpm -y
+RUN rpm -ivh /root/rpms/kernel-devel-5.14.0-427.49.1.el9_4.x86_64.rpm --nodeps
+RUN rpm -ivh  /root/rpms/kernel-core-5.14.0-427.49.1.el9_4.x86_64.rpm --nodeps
+RUN rpm -ivh /root/rpms/kernel-headers-5.14.0-427.49.1.el9_4.x86_64.rpm --nodeps
+
+# DNF install packages either from repo or locally
+RUN dnf install wget procps-ng pciutils yum jq iputils ethtool net-tools kmod systemd-udev rpm-build gcc make -y
+
+RUN ln -s /usr/src/kernels/5.14.0-427.49.1.el9_4.x86_64 /usr/src/kernels/5.14.0-427.49.1.el9_4.x86_64/build
