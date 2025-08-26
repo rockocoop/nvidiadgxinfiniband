@@ -5,7 +5,7 @@ WORKDIR /root/mft
 
 # Copy in packages not available in UBI repo
 COPY ./rpms/*.rpm /root/rpms/
-RUN dnf install /root/rpms/usbutils*.rpm -y
+
 RUN rpm -ivh /root/rpms/kernel-devel-5.14.0-427.49.1.el9_4.x86_64.rpm --nodeps
 RUN rpm -ivh  /root/rpms/kernel-core-5.14.0-427.49.1.el9_4.x86_64.rpm --nodeps
 RUN rpm -ivh /root/rpms/kernel-headers-5.14.0-427.49.1.el9_4.x86_64.rpm --nodeps
