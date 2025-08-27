@@ -1,0 +1,86 @@
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+  name: perftest
+  namespace: NAMESPACE
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: perftest
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [
+            { "name" : "ibnetwork1", "namespace" : "default" },
+            { "name" : "ibnetwork2", "namespace" : "default" },
+            { "name" : "ibnetwork3", "namespace" : "default" },
+            { "name" : "ibnetwork4", "namespace" : "default" },
+            { "name" : "ibnetwork5", "namespace" : "default" },
+            { "name" : "ibnetwork6", "namespace" : "default" },
+            { "name" : "ibnetwork7", "namespace" : "default" },
+            { "name" : "ibnetwork8", "namespace" : "default" }
+          ]
+      labels:
+        app: perftest
+    spec:
+      containers:
+      - args:
+        - infinity
+        command:
+        - sleep
+        image: <containerRegistry>/openshift/nvidia/perftest:1
+        imagePullPolicy: IfNotPresent
+        name: container
+        securityContext:
+          capabilities:
+            add:
+            - IPC_LOCK
+            - NET_ADMIN
+          privileged: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /dev/infiniband
+          name: dev-infiniband
+        - mountPath: /sys/class/infiniband
+          name: sys-infiniband
+        - mountPath: /dev/shm
+          name: dshm
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      resources:
+        limits:
+          nvidia.com/gpu: 8
+          openshift.io/rdma_sw1: 1
+          openshift.io/rdma_sw2: 1
+          openshift.io/rdma_sw3: 1
+          openshift.io/rdma_sw4: 1
+          openshift.io/rdma_sw5: 1
+          openshift.io/rdma_sw6: 1
+          openshift.io/rdma_sw7: 1
+          openshift.io/rdma_sw8: 1
+      volumes:
+      - name: dshm
+        emptyDir:
+          medium: Memory
+          sizeLimit: 1000Gi
+      - hostPath:
+          path: /dev/infiniband
+          type: Directory
+        name: dev-infiniband
+      - hostPath:
+          path: /sys/class/infiniband
+          type: Directory
+        name: sys-infiniband
