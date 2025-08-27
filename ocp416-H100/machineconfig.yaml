@@ -1,0 +1,48 @@
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+ labels:
+ machineconfiguration.openshift.io/role: worker
+ name: rmmodirdma
+spec:
+ config:
+   ignition:
+     version: 3.4.0
+     systemd:
+       units:
+       - contents: |
+         [Unit]
+         Description=unload irdma module from kernel
+         After=network.target
+         [Service]
+         Type=oneshot
+         ExecStart=/sbin/rmmod irdma
+         RemainAfterExit=true
+         [Install]
+         WantedBy=multi-user.target
+         enabled: true
+         name: rmmod-irdma.service
+---
+
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+ labels:
+   machineconfiguration.openshift.io/role: worker
+ name: crioulimit
+spec:
+ config:
+   ignition:
+     version: 3.4.0
+   storage:
+     files:
+     - contents:
+       source: data:text/plain;charset=utf-
+8;base64,W2NyaW8ucnVudGltZV0KZGVmYXVsdF91bGltaXRzID0gWwogICJucHJvYz0xNj
+M0ODotMSIsCiAgInN0YWNrPTE2MDAwMDA6LTEiLAogICJtZW1sb2NrPS0xOi0xIgpdCg==
+       verification: {}
+       filesystem: root
+       mode: 420
+       overwrite: true
+       path: /etc/crio/crio.conf.d/10-custom

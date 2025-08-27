@@ -1,0 +1,144 @@
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+ name: mlnxnics-sw1
+ namespace: openshift-sriov-network-operator
+spec:
+ deviceType: netdevice
+ isRdma: true
+ linkType: IB
+ nicSelector:
+ pfNames:
+ - ibp24s0
+ nodeSelector:
+   feature.node.kubernetes.io/rdma.capable: "true"
+ numVfs: 8
+ priority: 99
+ resourceName: rdma_sw1
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+ name: mlnxnics-sw2
+ namespace: openshift-sriov-network-operator
+spec:
+ deviceType: netdevice
+ isRdma: true
+ linkType: IB
+ nicSelector:
+ pfNames:
+ - ibp206s0
+ nodeSelector:
+   feature.node.kubernetes.io/rdma.capable: "true"
+ numVfs: 8
+ priority: 99
+ resourceName: rdma_sw2
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+ name: mlnxnics-sw3
+ namespace: openshift-sriov-network-operator
+spec:
+ deviceType: netdevice
+ isRdma: true
+ linkType: IB
+ nicSelector:
+ pfNames:
+ - ibp220s0
+ nodeSelector:
+   feature.node.kubernetes.io/rdma.capable: "true"
+ numVfs: 8
+ priority: 99
+ resourceName: rdma_sw3
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+ name: mlnxnics-sw4
+ namespace: openshift-sriov-network-operator
+spec:
+ deviceType: netdevice
+ isRdma: true
+ linkType: IB
+ nicSelector:
+ pfNames:
+ - ibp64s0
+ nodeSelector:
+   feature.node.kubernetes.io/rdma.capable: "true"
+ numVfs: 8
+ priority: 99
+ resourceName: rdma_sw4
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+ name: mlnxnics-sw5
+ namespace: openshift-sriov-network-operator
+spec:
+ deviceType: netdevice
+ isRdma: true
+ linkType: IB
+ nicSelector:
+ pfNames:
+ - ibp79s0
+ nodeSelector:
+   feature.node.kubernetes.io/rdma.capable: "true"
+ numVfs: 8
+ priority: 99
+ resourceName: rdma_sw5
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+ name: mlnxnics-sw6
+ namespace: openshift-sriov-network-operator
+spec:
+ deviceType: netdevice
+ isRdma: true
+ linkType: IB
+ nicSelector:
+ pfNames:
+ - ibp94s0
+ nodeSelector:
+   feature.node.kubernetes.io/rdma.capable: "true"
+ numVfs: 8
+ priority: 99
+ resourceName: rdma_sw6
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+ name: mlnxnics-sw7
+ namespace: openshift-sriov-network-operator
+spec:
+ deviceType: netdevice
+ isRdma: true
+ linkType: IB
+ nicSelector:
+ pfNames:
+ - ibp154s0
+ nodeSelector:
+   feature.node.kubernetes.io/rdma.capable: "true"
+ numVfs: 8
+ priority: 99
+ resourceName: rdma_sw7
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+ name: mlnxnics-sw8
+ namespace: openshift-sriov-network-operator
+spec:
+ deviceType: netdevice
+ isRdma: true
+ linkType: IB
+ nicSelector:
+ pfNames:
+ - ibp192s0
+ nodeSelector:
+   feature.node.kubernetes.io/rdma.capable: "true"
+ numVfs: 8
+ priority: 99
+ resourceName: rdma_sw8
+---

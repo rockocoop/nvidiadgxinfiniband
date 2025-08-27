@@ -1,0 +1,160 @@
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+ annotations:
+   k8s.v1.cni.cncf.io/resourceName: openshift.io/rdma_sw1
+ name: ibnetwork1
+ namespace: default
+spec:
+ config: |-
+   {
+     "cniVersion": "0.3.1",
+     "name": "ibnetwork1",
+     "type": "ib-sriov",
+     "link_state": "enable",
+     "ipam": {
+     "type": "whereabouts",
+     "range": "192.168.111.0/24"
+     }
+   }
+---
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+ annotations:
+   k8s.v1.cni.cncf.io/resourceName: openshift.io/rdma_sw2
+ name: ibnetwork2
+ namespace: default
+spec:
+ config: |-
+   {
+     "cniVersion": "0.3.1",
+     "name": "ibnetwork2",
+     "type": "ib-sriov",
+     "link_state": "enable",
+     "ipam": {
+     "type": "whereabouts",
+     "range": "192.168.121.0/24"
+     }
+   }
+---
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+ annotations:
+   k8s.v1.cni.cncf.io/resourceName: openshift.io/rdma_sw3
+ name: ibnetwork3
+ namespace: default
+spec:
+ config: |-
+   {
+     "cniVersion": "0.3.1",
+     "name": "ibnetwork3",
+     "type": "ib-sriov",
+     "link_state": "enable",
+     "ipam": {
+     "type": "whereabouts",
+     "range": "192.168.131.0/24"
+     }
+   }
+---
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+ annotations:
+   k8s.v1.cni.cncf.io/resourceName: openshift.io/rdma_sw4
+ name: ibnetwork4
+ namespace: default
+spec:
+ config: |-
+   {
+     "cniVersion": "0.3.1",
+     "name": "ibnetwork4",
+     "type": "ib-sriov",
+     "link_state": "enable",
+     "ipam": {
+     "type": "whereabouts",
+     "range": "192.168.141.0/24"
+     }
+   }
+---
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+ annotations:
+   k8s.v1.cni.cncf.io/resourceName: openshift.io/rdma_sw5
+ name: ibnetwork5
+ namespace: default
+spec:
+ config: |-
+   {
+     "cniVersion": "0.3.1",
+     "name": "ibnetwork5",
+     "type": "ib-sriov",
+     "link_state": "enable",
+     "ipam": {
+     "type": "whereabouts",
+     "range": "192.168.151.0/24"
+     }
+   }
+---
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+ annotations:
+   k8s.v1.cni.cncf.io/resourceName: openshift.io/rdma_sw6
+ name: ibnetwork6
+ namespace: default
+spec:
+ config: |-
+   {
+     "cniVersion": "0.3.1",
+     "name": "ibnetwork6",
+     "type": "ib-sriov",
+     "link_state": "enable",
+     "ipam": {
+     "type": "whereabouts",
+     "range": "192.168.161.0/24"
+     }
+   }
+---
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+ annotations:
+   k8s.v1.cni.cncf.io/resourceName: openshift.io/rdma_sw7
+ name: ibnetwork7
+ namespace: default
+spec:
+ config: |-
+   {
+     "cniVersion": "0.3.1",
+     "name": "ibnetwork7",
+     "type": "ib-sriov",
+     "link_state": "enable",
+     "ipam": {
+     "type": "whereabouts",
+     "range": "192.168.171.0/24"
+     }
+   }
+---
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+ annotations:
+   k8s.v1.cni.cncf.io/resourceName: openshift.io/rdma_sw8
+ name: ibnetwork8
+ namespace: default
+spec:
+ config: |-
+   {
+     "cniVersion": "0.3.1",
+     "name": "ibnetwork8",
+     "type": "ib-sriov",
+     "link_state": "enable",
+     "ipam": {
+     "type": "whereabouts",
+     "range": "192.168.181.0/24"
+     }
+   }
+---

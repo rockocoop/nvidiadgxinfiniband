@@ -1,0 +1,26 @@
+apiVersion: mellanox.com/v1alpha1
+kind: NicClusterPolicy
+metadata:
+ name: nic-cluster-policy
+ namespace: network-operator
+spec:
+ ofedDriver:
+   image: mofed
+   repository: <containerRegistry>
+   version: "24.101–1.1.4.0–5.14.0–427.49.1.el9_4.x86_64"
+   env:
+   - name: RESTORE_DRIVER_ON_POD_TERMINATION
+     value: 'true'
+   - name: UNLOAD_STORAGE_MODULES
+     value: 'true'
+   - name: CREATE_IFNAMES_UDEV
+     value: 'true'
+   upgradePolicy:
+     autoUpgrade: true
+     maxParallelUpgrades: 1
+     drain:
+       enable: true
+       force: false
+       podSelector: ""
+       timeoutSeconds: 300
+       deleteEmptyDir: false
