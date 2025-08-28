@@ -33,6 +33,16 @@ spec:
       labels:
         app: perftest
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - perftest
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - args:
         - infinity
